@@ -23,7 +23,13 @@ function Toggle({children}) {
   )
 }
 
-const useToggle = () => React.useContext(ToggleContext)
+const useToggle = () => {
+  const context = React.useContext(ToggleContext)
+  if (!context) {
+    throw new Error('useToggle must be used within a <Toggle />')
+  }
+  return context
+}
 // 🐨 we'll still get the children from props (as it's passed to us by the
 // developers using our component), but we'll get `on` implicitly from
 // ToggleContext now
